@@ -1,24 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     public Image levelSlider;
     public Image currentLevelImg;
     public Image nextlevelImg;
 
     public GameObject settingBTN;
     public GameObject allBTN;
+    public GameObject resetBTN;
 
     public GameObject soundONBTN;
     public GameObject soundOFFBTN;
     public bool soundOnOffBo;
 
     public bool buttonSettingBo;
+
+    public TextMeshProUGUI LvlText;
 
     public Material playerMat;
 
@@ -103,8 +107,9 @@ public class GameUIController : MonoBehaviour
     {
         buttonSettingBo = !buttonSettingBo;
         allBTN.SetActive(buttonSettingBo);
-    }
+        resetBTN.SetActive(buttonSettingBo);
 
+    }
 
 
 

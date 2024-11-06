@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class LevelSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject[] obstacleModel;
     [HideInInspector]
     public GameObject[] obstaclePrefab = new GameObject[4];
@@ -83,7 +82,6 @@ public class LevelSpawner : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -143,6 +141,17 @@ public class LevelSpawner : MonoBehaviour
     public void NextLevel()
     {
         PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+        SceneManager.LoadScene(0);
+    }
+    public void ResetLevel()
+    {
+        PlayerPrefs.SetInt("Level", 1);
+        SceneManager.LoadScene(0);
+    }
+
+    public void CurrentLevel()
+    {
+        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level"));
         SceneManager.LoadScene(0);
     }
 }

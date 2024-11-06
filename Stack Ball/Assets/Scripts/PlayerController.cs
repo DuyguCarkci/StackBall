@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public GameObject InvictableOBJ;
     public GameObject gameOverUI;
     public GameObject finishUI;
-
+    public GameObject effect;
     public enum PlayerState
     {
         Prepare,
@@ -142,13 +143,21 @@ public class PlayerController : MonoBehaviour
 
         if (playerstate == PlayerState.Finish)
         {
+            effect.SetActive(true); 
             if (Input.GetMouseButtonDown(0))
             {
+                effect.SetActive(false);
                 FindObjectOfType<LevelSpawner>().NextLevel();
             }
         }
 
-
+        if (playerstate == PlayerState.Died)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                FindObjectOfType<LevelSpawner>().CurrentLevel();
+            }
+        }
 
 
 
@@ -226,7 +235,7 @@ public class PlayerController : MonoBehaviour
                 {
                     Debug.Log("GameOver");
                     gameOverUI.SetActive(true);
-                    playerstate = PlayerState.Finish;
+                    playerstate = PlayerState.Died;
                     gameObject.GetComponent<Rigidbody>().isKinematic = true;
                     ScoreManager.intance.ResetScore();
                     SoundManager.instance.playSoundFX(death, 0.5f);
@@ -251,7 +260,7 @@ public class PlayerController : MonoBehaviour
             playerstate = PlayerState.Finish;
             SoundManager.instance.playSoundFX(win, 0.5f);
             finishUI.SetActive(true);
-            finishUI.transform.GetChild(0).GetComponent<Text>().text = "Level" + PlayerPrefs.GetInt("Level", 1);
+            finishUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Level " + PlayerPrefs.GetInt("Level", 1);
         }
 
 
